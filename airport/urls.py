@@ -16,11 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from flights import views
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("flights/", views.FlightsList.as_view(), name="flights-list"),
-    path("bookings/", views.BookingsList.as_view(), name="bookings-list"),
+    path("booking/", views.BookingsList.as_view(), name="booking-list"),
+    path("api/login/", TokenObtainPairView.as_view(), name="login"),
+    path(
+        "booking/flight/<int:flight_id>/",
+        views.BookFlight.as_view(),
+        name="book-flight",
+    ),
     path(
         "booking/<int:booking_id>/",
         views.BookingDetails.as_view(),

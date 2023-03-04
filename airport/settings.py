@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import pathlib
+from datetime import timedelta
+
 
 # Build paths inside the project like this: BASE_DIR / ...
 BASE_DIR = pathlib.Path(__file__).parent.parent
@@ -39,7 +41,18 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "flights",
+    "rest_framework_simplejwt",
 ]
+REST_FRAMEWORK = {
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1), }
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
